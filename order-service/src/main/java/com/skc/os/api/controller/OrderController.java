@@ -22,8 +22,14 @@ public class OrderController {
 
     @PostMapping("/bookOrder")
     public TransactionResponse bookOrder(@RequestBody TransactionRequest request){
+        TransactionResponse response = null;
+        try {
+            response  = orderService.saveOrder(request);
+        }catch (Exception e){
+            System.out.println("Error occurred try later");
+        }
 
-        return orderService.saveOrder(request);
+        return response;
     }
 
 }

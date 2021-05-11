@@ -6,3 +6,6 @@ spring:
       enabled: true
   application:
     name: PAYMENT-SERVICE
+
+logging:
+  file: /home/lenovo/Documents/logs/microservice.log

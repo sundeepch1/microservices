@@ -1,7 +1,11 @@
 package com.skc.ps.api.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.skc.ps.api.entity.Payment;
 import com.skc.ps.api.repository.PaymentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +18,12 @@ public class PaymentService {
     @Autowired
     private PaymentRepository paymentRepository;
 
-    public Payment doPayment(Payment payment){
+    private Logger logger = LoggerFactory.getLogger(PaymentService.class);
+
+    public Payment doPayment(Payment payment) throws JsonProcessingException {
         payment.setPaymentStatus(paymentProcessing());
         payment.setTransactionId(UUID.randomUUID().toString());
+        logger.info("PaymentService request : {}", new ObjectMapper().writeValueAsString(payment));
         return paymentRepository.save(payment);
     }
 
@@ -25,7 +32,8 @@ public class PaymentService {
         return new Random().nextBoolean()?"success":"false";
     }
 
-    public Payment findPaymentHistoryByOrderId(int orderId) {
+    public Payment findPaymentHistoryByOrderId(int orderId) throws JsonProcessingException {
+        logger.info("PaymentService findPaymentHistoryByOrderId : {} ", new ObjectMapper().writeValueAsString(orderId));
         return  paymentRepository.findByOrderId(orderId);
     }
 }

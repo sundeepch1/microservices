@@ -17,12 +17,26 @@ public class PaymentController {
     @PostMapping("/doPayment")
     public Payment doPayment(@RequestBody Payment payment){
 
-        return paymentService.doPayment(payment);
+        Payment paymentResponse = null;
+        try {
+            paymentResponse = paymentService.doPayment(payment);
+        }catch (Exception e){
+
+        }
+
+        return paymentResponse;
     }
 
     @GetMapping("/{orderId}")
     public Payment findPaymentHistoryByOrderId(@PathVariable int orderId){
-        return paymentService.findPaymentHistoryByOrderId(orderId);
+        Payment payment = null;
+        try {
+            payment = paymentService.findPaymentHistoryByOrderId(orderId);
+        }catch (Exception e){
+            System.out.println("Some error occurred try later");
+        }
+
+        return payment;
     }
 
 
