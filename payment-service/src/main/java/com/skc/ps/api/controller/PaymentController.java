@@ -5,6 +5,7 @@ import com.skc.ps.api.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Random;
 
 @RestController
@@ -28,8 +29,8 @@ public class PaymentController {
     }
 
     @GetMapping("/{orderId}")
-    public Payment findPaymentHistoryByOrderId(@PathVariable int orderId){
-        Payment payment = null;
+    public List<Payment> findPaymentHistoryByOrderId(@PathVariable int orderId){
+        List<Payment> payment= null;
         try {
             payment = paymentService.findPaymentHistoryByOrderId(orderId);
         }catch (Exception e){

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -32,7 +33,7 @@ public class PaymentService {
         return new Random().nextBoolean()?"success":"false";
     }
 
-    public Payment findPaymentHistoryByOrderId(int orderId) throws JsonProcessingException {
+    public List<Payment> findPaymentHistoryByOrderId(int orderId) throws JsonProcessingException {
         logger.info("PaymentService findPaymentHistoryByOrderId : {} ", new ObjectMapper().writeValueAsString(orderId));
         return  paymentRepository.findByOrderId(orderId);
     }
